@@ -1,0 +1,9 @@
+*
+
+!.gitignore
+
+!main.py
+!file.py
+!menu.py
+!week.py
+!day.py
