@@ -18,25 +18,29 @@ from file import File
 DAYSOFWEEK = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Master')
 
 def addTask(day):
-    i = None
+    i = input(Menu.OPTIONP)
     while i != 'q' and not i.isspace():
-        i = input(Menu.OPTIONP)
         day.addTask(i)
+        i = input(Menu.OPTIONP)
 
 
 def removeTask(day):
-    i = None
+    i = input(Menu.OPTIONP)
     while i != 'q' and not i.isspace():
-        i = input(Menu.OPTIONP)
         day.removeTask(i)
-
-
-def moveTask(day):
-    i = None
-    while i != 'q' and not i.isspace():
         i = input(Menu.OPTIONP)
-        j = input(Menu.OPTIONP)
-        day.moveTask(i, j)
+
+
+def moveTask(day, schedule):
+    i, j = "none", "none"
+    while i != 'q' and j != 'Q' and not i.isspace():
+        print("Hello")
+        i = input(Menu.OPTIONP)
+        j = input(Menu.OPTIONP).title().strip()
+        if j != 'Q' and not j.isspace():
+            print("Hullo")
+            j = schedule.getDay(j)
+            day.moveTask(i, j)
 
 
 def createWeek(days):
@@ -127,7 +131,7 @@ def main():
                 pass
             elif i == 'm':
                 # move tasks to another day
-                moveTask(day)
+                moveTask(day, schedule)
             
             elif i == 't':
                 # toggle tasks
