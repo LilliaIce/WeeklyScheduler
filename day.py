@@ -50,7 +50,7 @@ class Day:
         if task.isspace():
             raise NameError("Task can't be whitespace")
         # task must be in uncomplete list
-        elif task not in newDay.uncompleteTasks:
+        elif task not in self.uncompleteTasks:
             raise NameError("Task can't be in uncomplete list")
         # task must not be in newDay's uncomplete list
         elif task in newDay.uncompleteTasks:
@@ -66,7 +66,7 @@ class Day:
             raise NameError("Task can't be whitespace")
         elif task in self.uncompleteTasks:
             # task must be in uncomplete list
-            if task in self._completeTasks:
+            if task in self.completeTasks:
                 raise NameError("Task can't be in complete list")
             self.completeTasks.append(task)
             self.uncompleteTasks.remove(task)

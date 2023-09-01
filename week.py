@@ -14,7 +14,7 @@ class Week():
 
     def getDay(self, day):
         """Gets a day from the daysInWeek list."""
-        list = []
+        self.list = []
         for i in self.daysInWeek:
-             list.append(str(i))
-        return self.daysInWeek[list.index(day)]
+             self.list.append(str(i))
+        return self.daysInWeek[self.list.index(day)]
