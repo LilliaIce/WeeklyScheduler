@@ -33,12 +33,10 @@ def removeTask(day):
 
 def moveTask(day, schedule):
     i, j = "none", "none"
-    while i != 'q' and j != 'Q' and not i.isspace():
-        print("Hello")
+    while i != 'q' and not i.isspace():
         i = input(Menu.OPTIONP)
         j = input(Menu.OPTIONP).title().strip()
         if j != 'Q' and not j.isspace():
-            print("Hullo")
             j = schedule.getDay(j)
             day.moveTask(i, j)
 
