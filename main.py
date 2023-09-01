@@ -27,7 +27,10 @@ def addTask(day):
 def removeTask(day):
     i = input(Menu.OPTIONP)
     while i != 'q' and not i.isspace():
-        day.removeTask(i)
+        try:
+            day.removeTask(i)
+        except:
+            pass
         i = input(Menu.OPTIONP)
 
 
@@ -38,6 +41,16 @@ def moveTask(day, schedule):
         if j != 'Q' and not j.isspace():
             j = schedule.getDay(j)
             day.moveTask(i, j)
+        i = input(Menu.OPTIONP)
+
+
+def toggleTask(day):
+    i = input(Menu.OPTIONP)
+    while i != 'q' and not i.isspace():
+        try:
+            day.toggleTask(i)
+        except:
+            pass
         i = input(Menu.OPTIONP)
 
 
@@ -77,6 +90,9 @@ def getWeeksTasks(schedule):
 def main():
     # will read file if able to; if not able, will print line to
     # warn user
+    kill = input("Press any key to start: ")
+    if kill == 'd':
+        File.clearFile()
     try:
         schedule = File.readFile()
     except:
@@ -133,7 +149,7 @@ def main():
             
             elif i == 't':
                 # toggle tasks
-                pass
+                toggleTask(day)
             else:
                 # if input doesn't correspond to any of the available
                 # options, user will be prompted for a new input

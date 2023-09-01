@@ -61,11 +61,11 @@ class Day:
 
 
     def toggleTask(self, task):
-        """Toggles a task as complete or uncomplete depending on which list
+        """Toggles a task as complete or uncomplete depending on which
         it was in prior"""
         if task.isspace():
             raise NameError("Task can't be whitespace")
         elif task[0] == "-":
-            task = task[1:] 
+            self.tasks[self.tasks.index(task)] = task[1:] 
         else:
-            task = "- " + task
+            self.tasks[self.tasks.index(task)] = "- " + task
