@@ -19,6 +19,7 @@ DAYSOFWEEK = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Master')
 
 def loopOption(method):
     """Loops through an option"""
+    i = "none"
     while i != 'q' and not i.isspace():
         i = input(Menu.OPTIONP)
         method(i)
@@ -77,6 +78,7 @@ def main():
     displayTasks(getWeeksTasks(schedule))
     print()
 
+    dayInput = "none"
     while dayInput != 'q' and not dayInput.isspace():
         # prompts the user to select a day
         print("Please select a day from the following list.")
@@ -91,6 +93,7 @@ def main():
 
         day = schedule.getDay(dayInput)
 
+        i = "none"
         while i != 'q' and not i.isspace():
             # gets the user's input for the day menu
             print(Menu.DAYMENU)
@@ -107,19 +110,10 @@ def main():
                     print("That wasn't a valid option.")
             # rename tasks
             elif i == 'r':
-                newDay = input("PROMPT > ")
                 loopOption(day.renameTask)
             # move tasks to another day
             elif i == 'm':
-                while True:
-                    i = input(Menu.OPTIONP)
-                    if i == 'q' or i == '':
-                        break
-                    j = input(Menu.OPTIONP).title().strip()
-                    j = schedule.getDay(day=j)
-                    if j == 'q' or j == '':
-                        break
-                    day.moveTask(i, j)
+                loopOption(day.moveTask)
             # toggle tasks
             elif i == 't':
                 loopOption(day.toggleTask)
