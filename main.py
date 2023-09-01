@@ -17,12 +17,26 @@ from file import File
 # list of the days of the week
 DAYSOFWEEK = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Master')
 
-def loopOption(method):
-    """Loops through an option"""
-    i = "none"
+def addTask(day):
+    i = None
     while i != 'q' and not i.isspace():
         i = input(Menu.OPTIONP)
-        method(i)
+        day.addTask(i)
+
+
+def removeTask(day):
+    i = None
+    while i != 'q' and not i.isspace():
+        i = input(Menu.OPTIONP)
+        day.removeTask(i)
+
+
+def moveTask(day):
+    i = None
+    while i != 'q' and not i.isspace():
+        i = input(Menu.OPTIONP)
+        j = input(Menu.OPTIONP)
+        day.moveTask(i, j)
 
 
 def createWeek(days):
@@ -99,27 +113,28 @@ def main():
             print(Menu.DAYMENU)
             i = input(Menu.DAYP)
 
-            # add tasks
             if i == 'a':
-                loopOption(day.addTask)
-            # remove tasks
+                # add tasks
+                addTask(day)
             elif i == 'd':
+                # remove tasks
                 try:
-                    loopOption(day.removeTask)
+                    removeTask(day)
                 except NameError:
                     print("That wasn't a valid option.")
-            # rename tasks
             elif i == 'r':
-                loopOption(day.renameTask)
-            # move tasks to another day
+                # rename tasks
+                pass
             elif i == 'm':
-                loopOption(day.moveTask)
-            # toggle tasks
+                # move tasks to another day
+                moveTask(day)
+            
             elif i == 't':
-                loopOption(day.toggleTask)
-            # if input doesn't correspond to any of the available
-            # options, user will be prompted for a new input
+                # toggle tasks
+                pass
             else:
+                # if input doesn't correspond to any of the available
+                # options, user will be prompted for a new input
                 print()
                 print(f"{i} isn't a valid option.")
             # when the user finishes with the above options, the program
