@@ -4,8 +4,7 @@ class Day:
     def __init__(self, name):
         """When a Day object is created, creates uncomplete and complete
         task lists and gets the object's name."""
-        self.uncompleteTasks = []
-        self.completeTasks = []
+        self.tasks = []
         self.name = name
 
 
@@ -14,9 +13,13 @@ class Day:
         return self.name
     
 
+    def testString(self, string):
+        """Tests strings"""
+
+
     def getTasks(self):
         list = []
-        for item in self.uncompleteTasks:
+        for item in self.tasks:
             list.append(item)
         return list
 
@@ -25,13 +28,13 @@ class Day:
         """Adds a task to the uncomplete list."""
         if task.isspace():
             raise NameError("Task can't be whitespace")
+        elif "-" in task:
+            raise NameError("Task can't contain '-'")
         elif task == False:
             raise NameError("Task can't be empty")
-        elif task in self.uncompleteTasks:
-            raise NameError("Task can't be in uncomplete list")
-        elif task in self.completeTasks:
-            raise NameError("Task can't be in complete list")
-        self.uncompleteTasks.append(task)
+        elif task in self.tasks:
+            raise NameError("Task can't be in the task list")
+        self.tasks.append(task)
 
 
     def removeTask(self, task):
@@ -40,23 +43,21 @@ class Day:
             raise NameError("Task can't be whitespace")
         elif task == False:
             raise NameError("Task can't be empty")
-        elif task not in self.uncompleteTasks:
-            raise NameError("Task must be in uncomplete list")
-        self.uncompleteTasks.remove(task)
+        elif task not in self.tasks:
+            raise NameError("Task must be in the task list")
+        self.tasks.remove(task)
 
 
     def moveTask(self, task, newDay):
         """Moves a task to another Day's uncomplete list"""
         if task.isspace():
             raise NameError("Task can't be whitespace")
-        # task must be in uncomplete list
-        elif task not in self.uncompleteTasks:
-            raise NameError("Task can't be in uncomplete list")
-        # task must not be in newDay's uncomplete list
-        elif task in newDay.uncompleteTasks:
-            raise NameError("Task can't be in uncomplete list")
-        newDay.uncompleteTasks.append(task)
-        self.uncompleteTasks.remove(task)
+        elif task not in self.tasks:
+            raise NameError("Task must be in the task list")
+        elif task in newDay.tasks:
+            raise NameError("Task can't be in the task list")
+        newDay.tasks.append(task)
+        self.tasks.remove(task)
 
 
     def toggleTask(self, task):
@@ -64,14 +65,7 @@ class Day:
         it was in prior"""
         if task.isspace():
             raise NameError("Task can't be whitespace")
-        elif task in self.uncompleteTasks:
-            # task must be in uncomplete list
-            if task in self.completeTasks:
-                raise NameError("Task can't be in complete list")
-            self.completeTasks.append(task)
-            self.uncompleteTasks.remove(task)
-        elif task in self.completeTasks:
-            if task in self.uncompleteTasks:
-                raise NameError("Task can't be in uncomplete list")
-            self.uncompleteTasks.append(task)
-            self.completeTasks.remove(task)
+        elif task[0] == "-":
+            task = task[1:] 
+        else:
+            task = "- " + task
