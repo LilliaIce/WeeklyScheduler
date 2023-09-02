@@ -27,10 +27,10 @@ def addTask(day):
 def removeTask(day):
     i = input(Menu.OPTIONP)
     while i != 'q' and not i.isspace():
-        try:
-            day.removeTask(i)
-        except:
-            pass
+        #try:
+        day.removeTask(i)
+        #except:
+        #    print("Sorry, that wasn't a valid task.")
         i = input(Menu.OPTIONP)
 
 
@@ -120,7 +120,8 @@ def main():
         dayInput = input("Please select the day. > ").title().strip()
 
         while dayInput not in DAYSOFWEEK:
-            print("That input wasn't valid. Please select from the following options.")
+            print("That's not a day of the week. Please choose a day from Monday to Friday, " +
+                  "or the 'master' list.")
             dayInput = input(" > ").title().strip()
 
         day = schedule.getDay(dayInput)
@@ -136,10 +137,7 @@ def main():
                 addTask(day)
             elif i == 'd':
                 # remove tasks
-                try:
-                    removeTask(day)
-                except NameError:
-                    print("That wasn't a valid option.")
+                removeTask(day)
             elif i == 'r':
                 # rename tasks
                 pass

@@ -13,8 +13,13 @@ class Day:
         return self.name
     
 
-    def testString(self, string):
+    def testString(self, task):
         """Tests strings"""
+        i = 0
+        while i < len(self.tasks):
+            print(i, task)
+            if task in self.tasks[i]:
+                return self.tasks[i]
 
 
     def getTasks(self):
@@ -43,8 +48,13 @@ class Day:
             raise NameError("Task can't be whitespace")
         elif task == False:
             raise NameError("Task can't be empty")
-        elif task not in self.tasks:
-            raise NameError("Task must be in the task list")
+        else:
+            try:
+                task = self.testString(task)
+                print("Moo")
+            except:
+                raise NameError("Task must be in the task list")
+        print("Boo")
         self.tasks.remove(task)
 
 
@@ -52,10 +62,13 @@ class Day:
         """Moves a task to another Day's uncomplete list"""
         if task.isspace():
             raise NameError("Task can't be whitespace")
-        elif task not in self.tasks:
-            raise NameError("Task must be in the task list")
         elif task in newDay.tasks:
-            raise NameError("Task can't be in the task list")
+            raise NameError("Task can't be in the new day's task list")
+        else:
+            try:
+                task = self.testString(task)
+            except:
+                raise NameError("Task must be in the day's task list")
         newDay.tasks.append(task)
         self.tasks.remove(task)
 
