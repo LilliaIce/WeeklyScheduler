@@ -14,7 +14,7 @@ from project import Project
 from day import Day
 from file import File
 
-# list of the days of the week
+# tuple of the days of the week
 DAYSOFWEEK = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Master')
 
 # prompt for main menu
@@ -28,6 +28,31 @@ OPTIONP = "\t\t > "
 MAINMENU = ("Enter 'q' or nothing to quit the program.")
 DAYMENU = ("Enter 'a' to add a task, 'd' to delete a task, 'r' to "
             "rename a task, 'm' to move a task,  or 't' to toggle a task.")
+UNKNOWN = ("Program didn't find file to read; to avoid data being replaced "
+           "when the program creates a new file, immediately exit the program.")
+REPLACE = ("Data has been replaced.")
+CONTINUE = ("Press 'Enter' to continue.")
+VALIDOPTION = ("That wasn't valid input. Please one of the above column headers.")
+SELECT = ("Please select a day from the following list.")
+
+
+def createWeek(days):
+    """Creates a list full of Day objects (initalized from a list of days)
+    and initializes a Week object with them"""
+    items = []
+    for item in days:
+        items.append(Day(item))
+    return Week(items)
+
+
+def addProject():
+    i = input(OPTIONP)
+    if i != 'q' and not i.isspace():
+        day.addProject(i)
+
+
+def removeProject():
+    pass
 
 
 def addTask(day):
@@ -65,25 +90,6 @@ def toggleTask(day):
         except:
             pass
         i = input(OPTIONP)
-
-
-def createWeek(days):
-    """Creates a list full of Day objects (initalized from a list of days)
-    and initializes a Week object with them"""
-    items = []
-    for item in days:
-        items.append(Day(item))
-    return Week(items)
-
-
-def addProject():
-    i = input(OPTIONP)
-    if i != 'q' and not i.isspace():
-        day.addProject(i)
-
-
-def removeProject():
-    pass
 
 
 def getWeekTasks(schedule):
@@ -156,8 +162,8 @@ def dayLoop(schedule, dayInput):
 
         day = schedule.getDay(dayInput)
         i = "none"
+
         while i != 'q' and not i.isspace():
-            # gets the user's input for the day menu
             print(DAYMENU)
             i = input(DAYP)
 
@@ -172,11 +178,7 @@ def dayLoop(schedule, dayInput):
             elif i.upper() == TOGGLE:
                 toggleTask(day)
             else:
-                # if input doesn't correspond to any of the available
-                # options, user will be prompted for a new input
-                print()
-                print(f"{i} isn't a valid option.")
-            File.saveFile(schedule)
+                print(f"{i} isn't a valid option.")  
 
 
 def startup():
@@ -185,13 +187,11 @@ def startup():
     try:
         schedule = File.readFile()
     except:
-        print("Program didn't find file to read; to avoid data being ",
-              "replaced when the program creates a new file, ",
-              "immediately exit the program.")
-        print("Press 'Enter' to continue.")
+        print(UNKNOWN)
+        print(CONTINUE)
         input()
         schedule = createWeek(DAYSOFWEEK)
-        print("Data has been replaced.")
+        print(REPLACE)
     return schedule
 
 
@@ -207,18 +207,18 @@ def main():
     dayInput = "none"
     while dayInput != 'q' and not dayInput.isspace():
         # prompts the user to select a day
-        print("Please select a day from the following list.")
+        print(SELECT)
         print(*schedule.getDays(), sep = ", ")
         print()
 
         dayInput = input(DAYP).title().strip()
 
         while dayInput not in DAYSOFWEEK:
-            print("That's not a day of the week. Please choose a day from Monday to Friday " +
-                  "or the 'master' list.")
+            print(VALIDOPTION)
             dayInput = input(MAINP).title().strip()
 
         dayLoop(schedule, dayInput)
+        File.saveFile(schedule)
         print()
         os.system("cls")
         displayWeek(getWeekTasks(schedule))
