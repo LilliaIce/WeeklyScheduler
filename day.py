@@ -17,9 +17,9 @@ class Day:
         """Tests strings"""
         i = 0
         while i < len(self.tasks):
-            print(i, task)
             if task in self.tasks[i]:
                 return self.tasks[i]
+            i = i + 1
 
 
     def getTasks(self):
@@ -51,10 +51,8 @@ class Day:
         else:
             try:
                 task = self.testString(task)
-                print("Moo")
             except:
                 raise NameError("Task must be in the task list")
-        print("Boo")
         self.tasks.remove(task)
 
 
@@ -78,7 +76,12 @@ class Day:
         it was in prior"""
         if task.isspace():
             raise NameError("Task can't be whitespace")
-        elif task[0] == "-":
-            self.tasks[self.tasks.index(task)] = task[1:] 
         else:
-            self.tasks[self.tasks.index(task)] = "- " + task
+            try:
+                task = self.testString(task)
+            except:
+                raise NameError("Task must be in the day's task list.")
+            if task[0] == "-":
+                self.tasks[self.tasks.index(task)] = task[2:] 
+            else:
+                self.tasks[self.tasks.index(task)] = "- " + task
