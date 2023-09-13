@@ -22,6 +22,14 @@ class Day:
             i = i + 1
 
 
+    def addProject():
+        pass
+
+
+    def removeProject():
+        pass
+
+
     def getTasks(self):
         list = []
         for item in self.tasks:
