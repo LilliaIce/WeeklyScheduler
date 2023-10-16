@@ -24,3 +24,6 @@ class File:
         newFile.write(pickle.dump(file))
         file.close()
         newFile.close()
+    
+    def loadArchivedFile():
+        pass

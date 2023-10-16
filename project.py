@@ -17,7 +17,7 @@ class Project():
         """Tests strings"""
         i = 0
         while i < len(self.tasks):
-            if task in self.tasks[i]:
+            if task.lower().strip() in self.tasks[i].lower().strip():
                 return self.tasks[i]
             i = i + 1
 
@@ -56,18 +56,16 @@ class Project():
         self.tasks.remove(task)
 
 
-    def moveTask(self, task, newDay):
-        """Moves a task to another Day's task list"""
-        if task.isspace():
-            raise NameError("Task can't be whitespace")
-        elif task in newDay.tasks:
-            raise NameError("Task can't be in the new day's task list")
+    def moveTask(self, task, newProject):
+        """ Moves a task to another Project's task list """
+        if task in newProject.tasks:
+            raise NameError("Task must not be in the new Project's task list")
         else:
             try:
                 task = self.testString(task)
             except:
-                raise NameError("Task must be in the day's task list")
-        newDay.tasks.append(task)
+                raise NameError("Task must be in the Project's task list")
+        newProject.tasks.append(task)
         self.tasks.remove(task)
 
 

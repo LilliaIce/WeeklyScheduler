@@ -7,6 +7,18 @@ class Week():
                 self.daysInWeek.append(item)
 
 
+    def addDay(self):
+        pass
+
+
+    def removeDay(self):
+         pass
+    
+
+    def renameDay(self):
+         pass
+
+
     def getDays(self):
         """Gets a list of the days in the Week object."""
         return self.daysInWeek
