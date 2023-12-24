@@ -4,8 +4,6 @@ class Day:
     def __init__(self, name):
         """ When a Day object is created, creates a projects list. """
         self.projects = []
-        for i in name:
-            self.addProject(i)
         self.name = name
 
 
@@ -81,7 +79,7 @@ class Day:
 
         try:
             project = self.testString(project)
+            index = contList.index(project)
         except:
             raise KeyError("Must select an existing project")
-        index = contList.index(project)
         return contList[index]

@@ -62,8 +62,8 @@ def createWeek(days):
     """ Creates a list full of Day objects (initalized from a list of days)
     and initializes a Week object with them """
     items = []
-    for item in days:
-        items.append(Day(item))
+    for i in days:
+        items.append(Day(i))
     return Week(items)
 
 
@@ -113,7 +113,10 @@ def moveProject(day, schedule):
 def addTask(day):
     print(INDEX3, PROJECTTEXT)
     j = input(INDEX3+PROMPT)
-    project = day.getProject(j)
+    try:
+        project = day.getProject(j)
+    except:
+        print(VALIDPROJECT)
     print(INDEX4, TASKTEXT)
     i = input(INDEX4+PROMPT)
     
@@ -207,11 +210,14 @@ def arrangeDayDisplay(day):
     list = []
     for project in day.getProjects():
         list.append(f"| {str(project)}")
-        for task in project.getTasks():
-            if "-" in task:
-                list.append(TASKINDENT+task)
-            else:
-                list.append(TASKINDENT+TASKINDENT+task)
+        try:
+            for task in project.getTasks():
+                if "-" in task:
+                    list.append(TASKINDENT+task)
+                else:
+                    list.append(TASKINDENT+TASKINDENT+task)
+        except:
+            print("")
     return list
 
 
