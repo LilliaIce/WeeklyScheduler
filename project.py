@@ -79,8 +79,10 @@ class Project():
                 task = self.testString(task)
             except:
                 raise NameError("Task must be in the day's task list.")
+            # removes the first two letters (- ) from the task
             if task[0] == "-":
                 self.tasks[self.tasks.index(task)] = task[2:] 
+            # adds two letters (- ) to the beginning of the task
             else:
                 self.tasks[self.tasks.index(task)] = "- " + task
                 
