@@ -23,6 +23,7 @@ class Project():
 
 
     def getTasks(self):
+        """Returns a list of tasks"""
         list = []
         for item in self.tasks:
             list.append(item)
