@@ -90,7 +90,9 @@ class Day:
         # container list
         contList = self.getProjects()
 
-        if project in strList:
-            index = strList.index(project)
-            return contList[index]
+        for i in strList:
+            # tests to see if the string is within any project names
+            if project.lower().strip() in i.lower().strip():
+                index = strList.index(i)
+                return contList[index]
         raise NameError("Project must be in the projects list")
