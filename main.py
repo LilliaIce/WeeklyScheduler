@@ -254,6 +254,7 @@ def displayWeek(week):
 
 
 def main():
+    os.system('cls')
     try:
         schedule = File.readFile()
     except:
