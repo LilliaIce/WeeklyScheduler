@@ -13,17 +13,25 @@ class Day:
 
 
     def testString(self, project):
-        """Tests strings"""
-        i = 0
+        """Tests if a valid project name
+        
+        If the project name already exists, the string is invalid"""
+        val = True
         projects = self.getStrProjects()
-        while i < len(projects):
-            if project.lower().strip() in projects[i].lower().strip():
-                return self.projects[i]
-            i = i + 1
+        for i in projects:
+            if project.lower().strip() == i.lower().strip():
+                val = False
+        return val
 
 
     def addProject(self, project):
-        """Adds a task to the task list."""
+        """Adds a project to the projects list."""
+        if project.name.isspace():
+            raise NameError("Project can't be whitespace")
+        elif project == False:
+            raise NameError("Project can't be empty")
+        elif project in self.projects:
+            raise NameError("Project can't be in the projects list")
         self.projects.append(project)
 
 
@@ -35,7 +43,12 @@ class Day:
     def moveProject(self, project, newDay):
         """ Moves a project from a project list to another
         project list """
-        newDay.addProject(project)
+        if str(project) in newDay.getStrProjects():
+            newProject = newDay.getProject(str(project))
+            for task in project.getTasks():
+                project.moveTask(task, newProject)
+        else:
+            newDay.addProject(project)
         self.removeProject(project)
 
 
@@ -77,9 +90,7 @@ class Day:
         # container list
         contList = self.getProjects()
 
-        try:
-            project = self.testString(project)
-            index = contList.index(project)
-        except:
-            raise KeyError("Must select an existing project")
-        return contList[index]
+        if project in strList:
+            index = strList.index(project)
+            return contList[index]
+        raise NameError("Project must be in the projects list")
