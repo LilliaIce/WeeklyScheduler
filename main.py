@@ -80,14 +80,17 @@ def getDays(week):
 def addProject(day):
     """ Adds a project to a day """
     i = input(INDEX3+PROMPT)
-    if i.upper() != QUIT and not i.isspace():
-        day.addProject(Project(i))
+    if i.upper() != QUIT:
+        try:
+            day.addProject(Project(i))
+        except:
+            print(VALIDPROJECT)  
 
 
 def removeProject(day):
     """ Removes a project from a day """
     i = input(INDEX3+PROMPT)
-    if i.upper() != QUIT and not i.isspace():
+    if i.upper() != QUIT:
         try:
             day.removeProject(day.getProject(i))
         except:
@@ -98,7 +101,7 @@ def moveProject(day, schedule):
     print(INDEX3, PROJECTTEXT)
     j = input(INDEX3+PROMPT)
 
-    if j.upper() != QUIT and not j.isspace():
+    if j.upper() != QUIT:
         j = day.getProject(j)
         print(INDEX3, "GET NEW DAY")
         i = input(INDEX3+PROMPT).title().strip()
@@ -117,32 +120,41 @@ def addTask(day):
         project = day.getProject(j)
     except:
         print(VALIDPROJECT)
-    print(INDEX4, TASKTEXT)
-    i = input(INDEX4+PROMPT)
-    
-    while i.upper() != QUIT and not i.isspace():
-        try:
-            project.addTask(i)
-        except:
-            print(VALIDTASK)
+        project = 0
+
+    if project:
         print(INDEX4, TASKTEXT)
         i = input(INDEX4+PROMPT)
+        
+        while i.upper() != QUIT:
+            try:
+                project.addTask(i)
+            except:
+                print(VALIDTASK)
+            print(INDEX4, TASKTEXT)
+            i = input(INDEX4+PROMPT)
 
 
 def removeTask(day):
     print(INDEX3, PROJECTTEXT)
     j = input(INDEX3+PROMPT)
-    project = day.getProject(j)
-    print(INDEX3, TASKTEXT)
-    i = input(INDEX3+PROMPT)
+    try:
+        project = day.getProject(j)
+    except:
+        print(VALIDPROJECT)
+        project = 0
 
-    while i.upper() != QUIT and not i.isspace():
-        try:
-            project.removeTask(i)
-        except:
-            print(VALIDTASK)
+    if project:
         print(INDEX3, TASKTEXT)
         i = input(INDEX3+PROMPT)
+
+        while i.upper() != QUIT:
+            try:
+                project.removeTask(i)
+            except:
+                print(VALIDTASK)
+            print(INDEX3, TASKTEXT)
+            i = input(INDEX3+PROMPT)
 
 
 def moveTask(day, schedule):
