@@ -15,7 +15,7 @@ from project import Project
 from day import Day
 
 # tuple of the days of the week
-DAYSOFWEEK = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Master')
+DAYSOFWEEK = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri')
 
 PROMPT = " > "
 INDEX1 = ""
